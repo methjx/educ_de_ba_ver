@@ -1,0 +1,102 @@
+html_doc = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zıtar vors</title>
+</head>
+<body>
+<h1 id='Header'>
+        Hello There.!
+    </h1>
+
+
+    <div class='grup1'>
+        <h2>
+            Jedi Temple
+            </h2>
+        <ul>
+            <li>Master Yoda</li>
+            <li>Obi-Wan</li>
+            <li>Ahsoka</li>
+        </ul>
+    </div>
+
+<div class='grup2'>
+        <h2>
+            Sith
+        </h2>
+        <ul>
+            <li>Emperor Palpatine</li>
+            <li>Darth Maul</li>
+            <li>Dooku</li>
+        </ul>
+    </div>
+        <div class='grup3'>
+        <h2>
+            Mandalorians
+        </h2>
+        <ul>
+            <li>Mando</li>
+            <li>Quenn</li>
+            <li>King</li>
+        </ul>
+    </div>
+
+    <img src="obiwan.jpg" alt="">
+    
+    <a class="sister" href="http://example1.com/elsie" id="link1">Elsie</a>
+    <a class="sister" href="http://example2.com/elsie" id="link2">Elsie</a>
+    <a class="sister" href="http://example3.com/elsie" id="link3">Elsie</a>
+
+</body>
+</html>
+
+"""
+
+
+
+
+from bs4 import BeautifulSoup
+
+soup = BeautifulSoup(html_doc,'html.parser')  ## vereceğimiz parametre html etiketi olacak. ##Verdiğimiz dökümanı pars edecek (analiz)
+
+result = soup.prettify()  ## Bunu kullanarak verdiğimiz dökümanda yerleri değişik olan etiketlerimizi düzelmiş şekilde konsolda düzelmiş şekilde görebiliriz.(Dökümanımızı düzenler.!)
+
+result = soup.title ## baslik bilgisi
+result = soup.head
+result = soup.body
+result = soup.title.name # başlıgın etiketi
+result = soup.title.string #baslıktaki string ifade
+result = soup.h1 # h1 içeriği
+result = soup.h2 # h2 içeriğini çağırdıgımızda ilk h2 geliyor devamını göreceğiz.
+result = soup.h2.name
+result = soup.h2.string # yine 60da oldugu gibi ilk h2 nin içindeki string ifadeyi elde ediyoruz.
+
+result = soup.find_all('h2') ## 60'da program ilk karsılastıgı bilgiyi alıyordu burada ise tüm h2 etiketlerini bul diyoruz.
+
+result = soup.find_all('h2')[0]
+result = soup.find_all('h2')[1]  # Bildiğimiz parametre seçme yöntemini kullanabiliriz yine !!
+
+
+result = soup.find_all('div')[1]
+
+result = soup.find_all('div')[1].ul # aynı zamanda etiketlerin alt (etiketlerinede) ulaşabiliriz.
+result = soup.find_all('div')[1].ul.li # baktık 1 etiket geldi 60.satırda karşılatıgımız gibi ozamaaaan;
+result = soup.find_all('div')[0].ul.find_all('li') # şeklindede devam edebilirim;
+# for i in result:
+#     print(i) # 74'deki noktaya geldikten sonra for la her elemana ulaşılabilir.
+#########################----------------------------------------------------------
+result = soup.div.findChildren() ##Metodumuzla tüm alt elemanlara  ulaşılabilir.
+
+result = soup.div.findNextSibling().findNextSibling().findPreviousSibling()
+
+result = soup.find_all('a') ## a etiketi içindeki linklere ulaşmak için;
+for link in result:
+    # print(link)
+    print(link.get('href')) # ya da içerideki attributelerede get kullanarak ulaşabiliriz.
+
+# print(result)
+
